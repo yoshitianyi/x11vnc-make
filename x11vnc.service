@@ -1,0 +1,14 @@
+[Unit]
+Description=Start x11vnc at startup.
+Requires=display-manager.service
+After=multi-user.target
+ 
+[Service]
+Type=simple
+ExecStart=/usr/bin/x11vnc -display :0 -auth guess -forever -loop -rfbauth /etc/x11vnc.pass -shared -noxdamage
+ExecStop=/usr/bin/killall x11vnc
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
